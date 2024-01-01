@@ -4,6 +4,8 @@ services:
   ray-head:
     build:
       context: .
+      target: ray-base
+
     ports:
       - "${REDISPORT}:${REDISPORT}"
       - "${DASHBOARDPORT}:${DASHBOARDPORT}"
@@ -24,6 +26,7 @@ services:
   ray-worker:
     build:
       context: .
+      target: ray-base
     depends_on: 
       - ray-head
     env_file:
@@ -37,3 +40,18 @@ services:
         limits:
           cpus: 1
           memory: '2g'
+
+  ray-notebook:
+    build:
+      context: .
+      target: ray-notebook
+    depends_on:
+      - ray-head
+    ports:
+      - "8888:8888"
+    volumes:
+      # Mount notebooks dir
+      - ./notebooks:/home/jovyan/notebooks
+    env_file:
+      - .env
+    command: bash -c "jupyter lab --ip=0.0.0.0 --no-browser --allow-root"
