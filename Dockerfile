@@ -6,7 +6,7 @@ RUN pip install -U "ray[data,train,tune,serve]"
 
 CMD ["bash", "-c", "ray start --head --num-cpus 1 --dashboard-host 0.0.0.0 --include-dashboard true --block"]
 
-# 1. Ray notebook image
+# 2. Ray notebook image
 ## Extend base image; add notebook
 FROM ray-base as ray-notebook
 
@@ -20,5 +20,10 @@ WORKDIR $HOME
 # Expose webUI
 EXPOSE 8888
 
-# Init
-CMD ["jupyter lab --ip=0.0.0.0 --no-browser --allow-root"]
+# Generate custom jupyter conf
+RUN jupyter notebook --generate-config
+ENV CONFIG_PATH="$HOME/.jupyter/jupyter_notebook_config.py"
+COPY "jupyter_notebook_config.py" ${CONFIG_PATH}
+
+# Set container entrypoint for startup
+ENTRYPOINT ["sh", "-c", "jupyter notebook --allow-root -y --no-browser --ip=0.0.0.0 --config=${CONFIG_PATH}"]
