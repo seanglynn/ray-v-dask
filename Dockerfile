@@ -20,10 +20,10 @@ WORKDIR $HOME
 # Expose webUI
 EXPOSE 8888
 
+# Generate custom jupyter conf
 RUN jupyter notebook --generate-config
-
-ENV CONFIG_PATH="/root/.jupyter/jupyter_notebook_config.py"
-
+ENV CONFIG_PATH="$HOME/.jupyter/jupyter_notebook_config.py"
 COPY "jupyter_notebook_config.py" ${CONFIG_PATH}
 
+# Set container entrypoint for startup
 ENTRYPOINT ["sh", "-c", "jupyter notebook --allow-root -y --no-browser --ip=0.0.0.0 --config=${CONFIG_PATH}"]
