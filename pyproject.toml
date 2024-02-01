@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "dask-bigquery-"
+name = "dask-bigquery-io"
 version = "0.1.0"
 description = "Dask for Bigquery R/W"
 authors = ["seanglynn"]
