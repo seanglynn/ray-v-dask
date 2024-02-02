@@ -58,3 +58,10 @@ Once you are done, tear down the cluster with
 ```
 docker-compose -f dask-docker-compose.yaml down
 ```
+## ML Integrations
+
+https://ml.dask.org/
+
+https://ml.dask.org/modules/generated/dask_ml.model_selection.GridSearchCV.html
+
+https://ml.dask.org/hyper-parameter-search.html#neither-compute-nor-memory-constrained
