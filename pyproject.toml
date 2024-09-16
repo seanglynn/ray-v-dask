@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "dask-bigquery-io"
+version = "0.1.0"
+description = "Dask for Bigquery R/W"
+authors = ["seanglynn"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+dask = "^2024.1.1"
+dask-bigquery = "^2023.9.0"
+google-cloud-bigquery = "^3.17.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
